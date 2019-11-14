@@ -2,6 +2,7 @@ import java.util.Scanner;
 
 public class Player {
 
+
      private String name;
      private int bal;
      private int age;
@@ -14,11 +15,15 @@ public class Player {
         tilePosition = p;
     }
 
+    //Accessor
     public String getName() { return name; }
     public int getBal() { return bal; }
     public int getAge() { return age; }
     public int getTilePosition() { return tilePosition; }
 
+    //Mutator
+    public void setTilePosition( int tp ) { tilePosition = tp; }
+    public void setName(String n) { name = n; }
 
 
     public void players (String[] name, int antalSpillere) {

@@ -6,5 +6,9 @@ public class Bank {
         money = m;
     }
 
+    //Accessor
+    public int getMoney() { return money; }
 
+    //Mutator
+    public void setMoney(int newMoney) { money = newMoney; }
 }
