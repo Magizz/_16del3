@@ -1,5 +1,6 @@
-public class Game {
+public class GameController {
     public static void gameloop() {
+
 
     }
 }
