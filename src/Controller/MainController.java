@@ -1,3 +1,7 @@
+package Controller;
+
+import main.Player;
+
 public class MainController {
     UIController UI = new UIController();
     Player pl = new Player();
@@ -6,7 +10,6 @@ public class MainController {
 
 public void game() {
     int antalSpiller = UI.getPlayerNumber();
-    String name = UI.setNameUI();
-    pl.players(name, antalSpiller);
+    pl.players(antalSpiller);
     }
 }

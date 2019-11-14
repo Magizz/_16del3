@@ -1,9 +1,11 @@
+package main;
+
 public class Bank {
 
     private int money;
 
     public Bank () {
-        int bal;
+        int bal = 0;
     }
 
     //Accessor
