@@ -1,28 +1,45 @@
 package main;
 
+import Tiles.Property;
+
 public class Player {
 
      private String name;
-     private int bal;
+     private Bank bal = new Bank();
      private int age;
      private int tilePosition;
+     private Property ownedProperty[] = new Property[12];
 
     public Player () {
         name = "";
-        bal = 0;
         age = 0;
+        tilePosition = 0;
+    }
+    public Player (String n, int a) {
+        name = n;
+        age = a;
         tilePosition = 0;
     }
 
     //Accessor
     public String getName() { return name; }
-    public int getBal() { return bal; }
+    public int getBal() { return bal.getMoney(); }
     public int getAge() { return age; }
     public int getTilePosition() { return tilePosition; }
 
     //Mutator
     public void setTilePosition( int tp ) { tilePosition = tp; }
     public void setName(String n) { name = n; }
+    public void setAge(int a) { age = a; }
+    public void setBal(int b) { bal.setMoney(b); }
+
+    //toString
+    public String toString() {
+        String output = "Name: " + getName() +
+                        "\nAge: " + getAge() +
+                        "\nBalance: " + getBal() + " MonopolyBucks";
+        return output;
+    }
 
     public void players (int antalSpillere) {
 
