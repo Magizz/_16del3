@@ -11,11 +11,21 @@ public class UIController {
         antalSpillere = gui.getUserInteger("Hvor mange spillere er i? et tal mellem 2-4", 2, 4);
         return antalSpillere;
     }
-    public String[] getPlayerName() {
-         String[] name={};
-            for (int i = 0; i < antalSpillere ; i++) {
-                 name[i] = gui.getUserString("Spiller " + (i+1) + " hvad er dit navn?");
-            }
-            return name;
+    public String setNameUI(int playerNr) {
+        String name = null;
+        name = gui.getUserString("Spiller " + (playerNr) + " hvad er dit navn?");
+        return name;
     }
+
+    }
+   }
+}
+
+
+    public void setNameUI2() {
+
+        if (antalSpillere == 2) {
+
+        }
+
 }

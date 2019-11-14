@@ -2,17 +2,16 @@ import java.util.Scanner;
 
 public class Player {
 
-
      private String name;
      private int bal;
      private int age;
      private int tilePosition;
 
-    public Player (String n,int b, int a, int p) {
-        name = n;
-        bal = b;
-        age = a;
-        tilePosition = p;
+    public Player () {
+        name = "";
+        bal = 0;
+        age = 0;
+        tilePosition = 0;
     }
 
     //Accessor
@@ -25,16 +24,24 @@ public class Player {
     public void setTilePosition( int tp ) { tilePosition = tp; }
     public void setName(String n) { name = n; }
 
+    public void players (int antalSpillere) {
 
-    public void players (String[] name, int antalSpillere) {
-        String[] p = {};
-        int[] bal = {};
-        int[] age = {};
-        int[] tilePosition = {};
+         if ( antalSpillere == 2){
+            Player player1 = new Player();
+            Player player2 = new Player();
+         }
+         else if ( antalSpillere == 3) {
+             Player player1 = new Player();
+             Player player2 = new Player();
+             Player player3 = new Player();
+         }
+         else {
+             Player player1 = new Player();
+             Player player2 = new Player();
+             Player player3 = new Player();
+             Player player4 = new Player();
+         }
 
-         for (int i = 0; i <antalSpillere; i++) {
-            p[i] = name[i];
-            bal[i] = 20;
-        }
     }
+
 }

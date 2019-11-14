@@ -6,7 +6,7 @@ public class MainController {
 
 public void game() {
     int antalSpiller = UI.getPlayerNumber();
-    String[] name = UI.getPlayerName();
+    String name = UI.setNameUI();
     pl.players(name, antalSpiller);
     }
 }

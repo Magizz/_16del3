@@ -2,13 +2,13 @@ public class Bank {
 
     private int money;
 
-    public Bank (int m) {
-        money = m;
+    public Bank () {
+        int bal;
     }
 
     //Accessor
     public int getMoney() { return money; }
 
     //Mutator
-    public void setMoney(int newMoney) { money = newMoney; }
+    public void setMoney(int m) { money = m; }
 }
