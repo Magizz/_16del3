@@ -1,5 +1,7 @@
 package main;
 
+import Controller.UIController;
+
 public class Main {
 
     public static void main(String[] args) {
@@ -11,6 +13,7 @@ public class Main {
         Player myPlayer2 = new Player("Niko", 20);
         myPlayer2.setBal(20);
         System.out.println(myPlayer2);
+
 
     }
    // MainController main = new MainController();
