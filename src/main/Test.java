@@ -20,9 +20,10 @@ class Test {
 
 
         for (int i = 0; i < 10 ; i++) {
-            System.out.println(diceobj);
             GameController.newPosition(myPlayer1, diceobj);
             GameController.newPosition(myPlayer2, diceobj);
+            System.out.println(myPlayer1);
+            System.out.println(myPlayer2);
         }
         System.out.println(myPlayer1);
         System.out.println(myPlayer2);

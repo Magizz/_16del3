@@ -6,10 +6,15 @@ import Controller.UIController;
 public class Main {
 
     public static void main(String[] args) {
-        main.Test test = new main.Test();
-        test.mainTest();
+       // main.Test test = new main.Test();
+        //test.mainTest();
+
+        UIController UI = new UIController();
+
+        //MainController main = new MainController();
+
+
 
     }
-   // MainController main = new MainController();
-   // public static void main(String[] args) { main.game(); }
+
 }

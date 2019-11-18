@@ -15,7 +15,14 @@ public class GameController {
     public static void newPosition(main.Player p,main.Dice d) {
         int newPos = p.getTilePosition();
         newPos += d.dieHit();
+            if (newPos > 23) {
+                newPos -= 24;
+            }
         p.setTilePosition(newPos);
+    }
+
+    public static void gameLoop(){
+
     }
 
 }
