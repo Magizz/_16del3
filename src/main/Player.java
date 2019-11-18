@@ -37,7 +37,8 @@ public class Player {
     public String toString() {
         String output = "Name: " + getName() +
                         "\nAge: " + getAge() +
-                        "\nBalance: " + getBal() + " MonopolyBucks";
+                        "\nBalance: " + getBal() + " MonopolyBucks" +
+                        "Position = Tile:" + getTilePosition();
         return output;
     }
 
