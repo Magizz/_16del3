@@ -42,24 +42,17 @@ public class Player {
         return output;
     }
 
-    public void players (int antalSpillere) {
+    public void players (int antalSpillere){
+           Player[] player = new Player[antalSpillere];
+           player.
+        }
 
-         if ( antalSpillere == 2){
-            Player player1 = new Player();
-            Player player2 = new Player();
-         }
-         else if ( antalSpillere == 3) {
-             Player player1 = new Player();
-             Player player2 = new Player();
-             Player player3 = new Player();
-         }
-         else {
-             Player player1 = new Player();
-             Player player2 = new Player();
-             Player player3 = new Player();
-             Player player4 = new Player();
-         }
-
+    public void startBal (int spiller){
+        if (spiller == 2) { setBal(20); }
+        else if (spiller == 3){ setBal(18); }
+        else { setBal(16); }
     }
 
+
 }
+
