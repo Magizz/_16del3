@@ -1,23 +1,30 @@
 package main;
 
 import Tiles.Property;
+import com.sun.deploy.panel.IProperty;
 
 public class Player {
-
+    //Bal skal hedde noget andet (balance)
+    private static int MaxProperties = 12;
      private String name;
      private Bank bal = new Bank();
      private int age;
      private int tilePosition;
-     private Property ownedProperty[] = new Property[12];
+    private int numberPropertiesOwned = 0;
+    private Property ownedProperty[] = new Property[MaxProperties];
 
     public Player () {
         name = "";
         age = 0;
         tilePosition = 0;
+        ownedProperty[0] = new Property();
+
     }
-    public Player (String n, int a) {
-        name = n;
-        age = a;
+
+    public Player (String name, int age, int initialMoney) {
+        bal.setMoney(initialMoney);
+        this.name = name;
+        this.age = age;
         tilePosition = 0;
     }
 
@@ -40,6 +47,22 @@ public class Player {
                         "\nBalance: " + getBal() + " MonopolyBucks" +
                         "Position = Tile:" + getTilePosition();
         return output;
+    }
+
+    public boolean buyProperty(Property property){
+        if (property.getIsOwned() == true) {
+            return false;
+        }
+        if (numberPropertiesOwned >= MaxProperties){
+            return false;
+        }
+        int price = property.getPrice();
+        int currentBalance = bal.getMoney();
+        bal.setMoney(currentBalance-price);
+        property.setIsOwned(true);
+        ownedProperty[numberPropertiesOwned] = property;
+        numberPropertiesOwned++;
+        return true;
     }
 
     public void players (int antalSpillere) {
