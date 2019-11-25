@@ -1,16 +1,19 @@
 package Controller;
 
+import GUI.GUI_Dice;
+import GUI.GUI_Players;
 import main.Dice;
 import main.Player;
 
 public class GameController {
 
-    private Dice d = new Dice();
+    private Dice d;
+    private GUI_Players GUIPlayer;
+    private GUI_Dice gd;
     private UIController ui = new UIController();
-    Player[] playerArray = new Player[4];
     private boolean gameover = false;
     private int totalPlayers = 0;
-
+    private Player[] playerArray = new Player[4];
 
     public static void passStart(main.Player p) {
         int newbal = p.getBal();
@@ -29,17 +32,18 @@ public class GameController {
 
     public void playerTurn(Player player, int playerID) {
             int dice = d.dieHit();
-            ui.setDice(dice);
+            gd.GUISetDice(dice);
             ui.showMessage("du slog " + dice);
             player.setTilePosition(player.getTilePosition()+dice);
-            ui.movePlayer(player,playerID);
+            pl.movePlayer(player,playerID);
     }
 
     public void startGame(){
-        totalPlayers = ui.getPlayerNumber();
+        GUIPlayer.setTotalPlayers();
+        totalPlayers = GUIPlayer.getTotalPlayers();
         for (int i = 0; i < totalPlayers ; i++) {
             playerArray[i].startBal(totalPlayers);
-            ui.addPlayer(playerArray[i].getBal());
+            GUIPlayer.addGUIPlayer(playerArray[i].getName(),playerArray[i].getBal());
         }
     }
 
@@ -47,4 +51,5 @@ public class GameController {
         for (int i = 0; i < totalPlayers ; i++) { playerTurn(playerArray[i],i); }
 
     }
+
 }

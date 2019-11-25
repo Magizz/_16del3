@@ -72,6 +72,7 @@ public class Player {
         if (spiller == 2) { setBal(20); }
         else if (spiller == 3){ setBal(18); }
         else { setBal(16); }
+
     }
 
 
