@@ -1,7 +1,11 @@
 package Tiles;
 
-public class Tile {
+public abstract class Tile {
 
-    private int tileID;
-    private String tileText;
+    protected int tileID;
+    protected String tileText;
+
+    public Tile() {}
+
+    public int getTileID() { return tileID; }
 }
