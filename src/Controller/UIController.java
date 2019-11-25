@@ -5,22 +5,15 @@ import gui_main.GUI;
 import jdk.nashorn.internal.ir.ReturnNode;
 import main.Dice;
 import main.Player;
-
 import java.awt.*;
 
 public class UIController {
-    private GUI_Player[] player = new GUI_Player[4];
+    private GUI_Player[] GUIplayers = new GUI_Player[4];
     private Player pl = new Player();
     private Dice di = new Dice();
     private GUI_Field[] fields = new GUI_Field[24];
     private GUI gui;
     private int antalSpillere = 0;
-
-
-    public UIController() {
-        gui = new GUI(createBoard());
-    }
-
     private GUI_Field[] createBoard() {
         fields[0] = new GUI_Start("Start", "Modtag: 2", "Modtag kr. 2,-\nnår de passerer start", Color.RED, Color.BLACK);
         fields[1] = new GUI_Street("Burgerbaren", "Pris:  1", "Burgerbaren", "Leje:  1", new Color(102, 102, 0), Color.BLACK);
@@ -49,6 +42,9 @@ public class UIController {
         return fields;
     }
 
+    public UIController() {
+        gui = new GUI(createBoard());
+    }
 
     public int getPlayerNumber() {
         antalSpillere = Integer.parseInt(gui.getUserSelection("Hvor mange spillere er i?","2","3","4"));
@@ -67,21 +63,17 @@ public class UIController {
 
     public void addPlayer (int bal) {
         for (int i = 0; i < antalSpillere ; i++) {
-            player[i] = new GUI_Player(setNameUI(), bal);
-            gui.addPlayer(player[i]);
-            gui.getFields()[0].setCar(player[i],true);
+            gui.addPlayer(GUIplayers[i]);
+            gui.getFields()[0].setCar(GUIplayers[i],true);
         }
-
-
     }
     public void setDice (int roll) { gui.setDie(roll); }
 
-    public void movePlayer (int newPos, String navn, int bal) {
+    public void movePlayer (Player player,int playerID) {
             for (int i = 0; i <fields.length ; i++) {
-                if ( fields[i]!=null )
-                    fields[i].setCar(player[newPos],false);
+                    fields[i].setCar(GUIplayers[playerID],false);
+                    gui.getFields()[player.getTilePosition()].setCar(GUIplayers[playerID],true);
         }
-        gui.getFields()[newPos].setCar(player[newPos],true);
         }
 
 }

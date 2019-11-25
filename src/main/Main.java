@@ -7,10 +7,9 @@ public class Main {
 
 
     public static void main(String[] args) {
-        main.Test test = new main.Test();
-        test.mainTest();
-        //test.gameLoop();
-
+       GameController game = new GameController();
+       game.startGame();
+       game.gameLoop();
         //UIController UI = new UIController();
 
         //MainController main = new MainController();

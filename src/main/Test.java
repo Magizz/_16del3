@@ -11,12 +11,12 @@ class Test {
     Dice d = new Dice();
     private boolean gameover = false;
 
-    void mainTest() {
+    void mainTest() {}}
 
-        int antalspillere = ui.getPlayerNumber();
+       /* int antalspillere = ui.getPlayerNumber();
         pl.startBal(antalspillere);
         pl.players(antalspillere);
-            ui.addPlayer(pl.getBal());
+        ui.addPlayer(pl.getBal());
         }
 
 
