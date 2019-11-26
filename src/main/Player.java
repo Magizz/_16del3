@@ -11,6 +11,7 @@ public class Player {
     private int tilePosition;
     private int numberPropertiesOwned = 0;
     private Property ownedProperty[] = new Property[MaxProperties];
+    private boolean jailFreeCard = false;
 
 
     public Player () {
@@ -33,12 +34,14 @@ public class Player {
     public int getBal() { return playerBank.getMoney(); }
     public int getAge() { return age; }
     public int getTilePosition() { return tilePosition; }
+    public boolean getJailFreeCard() {return jailFreeCard; }
 
     // Mutators
     public void setTilePosition( int tp ) { tilePosition = tp; }
     public void setName(String n) { name = n; }
     public void setAge(int a) { age = a; }
     public void setBal(int b) { playerBank.setMoney(b); }
+    public void setJailFreeCard(boolean state) { jailFreeCard = state; }
 
     // toString
     public String toString() {

@@ -110,7 +110,7 @@ public class UIController {
     public void playerTurn(GUI_Player GUIplayerObj) {
         int die = this.dieObj.dieHit();
         GUISetDice(die);
-        showMessage("Du slog: " + die);
+        showMessage ("Du slog: " + die);
         movePlayer(die, GUIplayerObj);
     }
 
