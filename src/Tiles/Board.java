@@ -8,6 +8,11 @@ public class Board {
     GUI_Start start = new GUI_Start();
 
 
+    UIController UI = new UIController();
+
+    public void landOnTileC (){
+        UI.showMessage("Du er landet på chance! Prøc lykken!");
+    }
 
 
 
