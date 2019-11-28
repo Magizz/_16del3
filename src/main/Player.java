@@ -22,7 +22,7 @@ public class Player {
 
     }
 
-    public Player (String name, int age, int initialMoney) {
+    public Player (String name, int initialMoney) {
         playerBank.setMoney(initialMoney);
         this.name = name;
         this.age = age;

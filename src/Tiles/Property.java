@@ -55,6 +55,7 @@ public class Property extends Tile {
         propertyObj.setIsOwned(true);
         playerObj.setOwnedProperty(playerObj.getNumberPropertiesOwned(), propertyObj);
         playerObj.setNumberPropertiesOwned(playerObj.getNumberPropertiesOwned()+1);
+        propertyObj.setOwner(playerObj);
         return true;
     }
     public void payRent(Player playerObj, Property propertyObj) {

@@ -18,9 +18,8 @@ public class MainController {
 
     public void setInformation() {
         guiPlayersObjArray = ui.getGUIPlayerObjArray();
-        playersObjArray = new Player[ui.getTotalPlayers()];
-        playersObjArray = ui.setPlayerInformation(playersObjArray);
-        board = boardObj.getBoardTiles();
+        playersObjArray = ui.getPlayersArray();
+        board = boardObj.getBoard();
     }
     public void runTest() {
         ui.startGame();
@@ -28,7 +27,7 @@ public class MainController {
         setInformation();
         while (!gameover) {
             for (int i = 0; i < ui.getTotalPlayers(); i++)
-            ui.playerTurn(playersObjArray[i], guiPlayersObjArray[i] );
+            ui.playerTurn(playersObjArray[i], guiPlayersObjArray[i], playersObjArray );
         }
     }
     public void Game() {runTest();}
