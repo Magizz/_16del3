@@ -1,10 +1,13 @@
 package Tiles;
 
-public class Start extends Tile {
-    private main.Bank BNK = new main.Bank();
+import main.Player;
 
+public class Start extends Tile {
     public Start(int ID) {
         this.tileID = ID;
     }
 
+    public void landOnField(Player playerObj) {
+
+    }
 }

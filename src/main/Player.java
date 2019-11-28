@@ -4,14 +4,13 @@ import Tiles.Property;
 import com.sun.deploy.panel.IProperty;
 
 public class Player {
-    private static int MaxProperties = 12;
+    private static int maxProperties = 12;
     private String name;
     private Bank playerBank = new Bank();
     private int age;
     private int tilePosition = 0;
-    private int oldPosition;
     private int numberPropertiesOwned = 0;
-    private Property ownedProperty[] = new Property[MaxProperties];
+    private Property ownedProperty[] = new Property[maxProperties];
     private boolean jailFreeCard = false;
 
 
@@ -36,6 +35,9 @@ public class Player {
     public int getAge() { return age; }
     public int getTilePosition() { return tilePosition; }
     public boolean getJailFreeCard() {return jailFreeCard; }
+    public int getMaxProperties() {return maxProperties; }
+    public int getNumberPropertiesOwned() {return numberPropertiesOwned; }
+    public Property[] getOwnedProperty() {return ownedProperty; }
 
     // Mutators
     public void setTilePosition( int tp ) { tilePosition = tp; }
@@ -43,6 +45,8 @@ public class Player {
     public void setAge(int a) { age = a; }
     public void setBal(int b) { playerBank.setMoney(b); }
     public void setJailFreeCard(boolean state) { jailFreeCard = state; }
+    public void setNumberPropertiesOwned(int newNPO) {this.numberPropertiesOwned = newNPO; }
+    public void setOwnedProperty(int index, Property propertyObj) {ownedProperty[index] = propertyObj;}
 
     // toString
     public String toString() {
@@ -53,21 +57,6 @@ public class Player {
         return output;
     }
 
-    public boolean buyProperty(Property property){
-        if (property.getIsOwned() == true) {
-            return false;
-        }
-        if (numberPropertiesOwned >= MaxProperties){
-            return false;
-        }
-        int price = property.getPrice();
-        int currentBalance = playerBank.getMoney();
-        playerBank.setMoney(currentBalance-price);
-        property.setIsOwned(true);
-        ownedProperty[numberPropertiesOwned] = property;
-        numberPropertiesOwned++;
-        return true;
-    }
 
     public void players (int antalSpillere){
            Player[] player = new Player[antalSpillere];

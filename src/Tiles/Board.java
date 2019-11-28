@@ -1,10 +1,14 @@
 package Tiles;
 
 public class Board {
-    public Board() {};
+    private Tile[] board;
 
-    public Tile[] boardTiles() {
-        Tile[] board = new Tile[24];
+    public Board() {
+        boardInitializer();
+    }
+
+    private void boardInitializer() {
+        board = new Tile[24];
         board[0] = new Start(0);
         board[1] = new Property("Burgerbaren", 1, 1, 1 );
         board[2] = new Property("Pizzariaet", 1, 1, 2 );
@@ -29,8 +33,6 @@ public class Board {
         board[21] = new Chance(21);
         board[22] = new Property("Vandlandet", 5, 5, 22 );
         board[23] = new Property("Strandpromenaden", 5, 5, 23 );
-        return board;
     }
-
-
+    public Tile[] getBoard() {return board; }
 }

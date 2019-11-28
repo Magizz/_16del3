@@ -1,5 +1,7 @@
 package Tiles;
 
+import main.Player;
+
 public abstract class Tile {
 
     protected int tileID;
@@ -7,6 +9,6 @@ public abstract class Tile {
 
 
     public int getTileID() { return tileID; }
-
+    public abstract void landOnField(Player playerObj);
 
 }

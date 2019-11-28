@@ -1,19 +1,21 @@
 package Controller;
 import gui_fields.*;
 import gui_main.GUI;
-import main.Bank;
-import main.Dice;
-import main.Player;
+import main.*;
+import Tiles.*;
 
 import java.awt.*;
 
 public class UIController {
+    private GameController GameConObj = new GameController();
     private Dice dieObj = new Dice();
-    private Bank bankObj;
     private GUI_Field[] fields = new GUI_Field[24];
     private GUI gui;
     private int totalPlayers;
     private GUI_Player[] GUIplayerObjArray;
+    private Board boardObj = new Board();
+    private Tile[] board = boardObj.getBoard();
+
 
 
     public UIController() {
@@ -98,6 +100,7 @@ public class UIController {
         playerObj.setTilePosition(playerObj.getTilePosition() + dice);
         if (playerObj.getTilePosition() > 23){
             playerObj.setTilePosition(playerObj.getTilePosition() % 24);
+            GameConObj.passStart(GUIplayerObj);
         }
         for (int i = 0; i <fields.length ; i++) {
             if ( fields[i]!=null )
@@ -124,10 +127,7 @@ public class UIController {
         GUISetDice(die);
         showMessage ("Du slog: " + die);
         movePlayer(die, playerObj, GUIplayerObj);
-
-    }
-    public void landOnField() {
-
+        board[playerObj.getTilePosition()].landOnField(playerObj);
     }
 }
 

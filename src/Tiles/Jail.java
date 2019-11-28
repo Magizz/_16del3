@@ -1,25 +1,19 @@
 package Tiles;
-
-import Controller.UIController;
-
+import main.Player;
+import Controller.*;
 public class Jail extends Tile {
-
     UIController uiObj = new UIController();
     // Contrusctor
     public Jail(int ID) { this.tileID = ID; }
 
-    // Go to Jail
-    public void landOnJail (main.Player playerObj) {
-        playerObj.setTilePosition(18);
-        uiObj.showMessage("Du røg i spjældet og betalte 2 MonopolyBucks for at komme ud næste tur.");
-        playerObj.setBal(playerObj.getBal()-2);
+    public void landOnField(Player playerObj) {
+        if (playerObj.getTilePosition()== 6) {
+            uiObj.showMessage("Bare rolig bror, du bare på besøg");
+        }
+        else {
+            uiObj.showMessage("Du kører for stærkt! Du får en bøde på 2 M, og bruger din tur i kachotten.");
+            playerObj.setBal(playerObj.getBal()-2);
+            playerObj.setTilePosition(6);
+        }
     }
-
-    // Visit Jail
-    public void landOnVisit (){
-        uiObj.showMessage("Bare rolig bror, du er bare på besøg");
-    }
-
-
-
 }

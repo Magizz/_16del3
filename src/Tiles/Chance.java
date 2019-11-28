@@ -38,29 +38,42 @@ public class Chance extends Tile{
                 System.out.println();
         }
     }
-    public void chanceTilesInitializer() {
-
-    }
 
     // Chancekort metoder
     public void moveToStartChance(Player playerObj) {
-        playerObj.setTilePosition(0);
-        playerObj.setBal(playerObj.getBal() + 2);
+        playerObj.setTilePosition(24);
+        uiObj.displayChanceCard("Flyt frem til start!");
     }
     public void move5TilesChance(Player playerObj) {
         playerObj.setTilePosition(playerObj.getTilePosition()+5);
+        uiObj.displayChanceCard("Flyt 5 felter frem!");
     }
     public void moveToOrangeFieldChance(Player playerObj) {
         playerObj.setTilePosition(7);
+        uiObj.displayChanceCard("Ryk frem til det første orange felt!");
     }
     public void ateCandyChance(Player playerObj) {
         playerObj.setBal(playerObj.getBal()-2);
+        uiObj.displayChanceCard("Du har spist alt for meget slik, du mister 2M. Åbenbart.");
     }
-    public void moveToLightBlueFieldChance(Player playerObj) {playerObj.setTilePosition(4); }
-    public void outOfJailChance(Player playerObj) {playerObj.setJailFreeCard(true); }
-    public void moveToStrandpromenaden(Player playerObj) {playerObj.setTilePosition(23); }
+    public void moveToLightBlueFieldChance(Player playerObj) {
+        playerObj.setTilePosition(4);
+        uiObj.displayChanceCard("Ryk frem til det første lyseblå felt!");
+    }
+    public void outOfJailChance(Player playerObj) {
+        playerObj.setJailFreeCard(true);
+        uiObj.displayChanceCard("Du har trukket et FriForFængselKort, du slipper for fængsel næste gang du lander på Fængsel!");
+    }
+    public void moveToStrandpromenaden(Player playerObj) {
+        uiObj.
+        uiObj.displayChanceCard("Ryk frem til Strandpromenaden!");
+    }
     public void doneHomeworkChance(Player playerObj) { playerObj.setBal(playerObj.getBal()+2); }
     public void moveToRedFieldChance(Player playerObj) {playerObj.setTilePosition(13); }
     public void moveToSkaterparkenChance(Player playerObj) {playerObj.setTilePosition(10);}
 
+
+    public void landOnField(Player playerObj) {
+        drawChance(playerObj);
+    }
 }

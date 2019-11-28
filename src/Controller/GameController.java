@@ -1,5 +1,6 @@
 package Controller;
 
+import gui_fields.GUI_Player;
 import main.Dice;
 import main.Player;
 
@@ -8,20 +9,11 @@ public class GameController {
     private Dice d;
     private boolean gameover = false;
 
-    public static void passStart(main.Player p) {
-        int newbal = p.getBal();
-        newbal += 2;
-        p.setBal(newbal);
+    public void passStart(GUI_Player GUIplayerObj) {
+        GUIplayerObj.setBalance(GUIplayerObj.getBalance()+2);
         }
 
-    public static void newPosition(main.Player p,main.Dice d) {
-        int newPos = p.getTilePosition();
-        newPos += d.dieHit();
-            if (newPos > 23) {
-                newPos -= 24;
-            }
-        p.setTilePosition(newPos);
-    }
+
 
 
 
