@@ -8,7 +8,8 @@ public class Player {
     private String name;
     private Bank playerBank = new Bank();
     private int age;
-    private int tilePosition;
+    private int tilePosition = 0;
+    private int oldPosition;
     private int numberPropertiesOwned = 0;
     private Property ownedProperty[] = new Property[MaxProperties];
     private boolean jailFreeCard = false;

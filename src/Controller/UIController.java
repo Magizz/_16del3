@@ -3,15 +3,17 @@ import gui_fields.*;
 import gui_main.GUI;
 import main.Bank;
 import main.Dice;
+import main.Player;
+
 import java.awt.*;
 
 public class UIController {
-    private GUI_Player[] playerObjArray = new GUI_Player[4];;
     private Dice dieObj = new Dice();
     private Bank bankObj;
     private GUI_Field[] fields = new GUI_Field[24];
     private GUI gui;
-    private int totalPlayers = 0;
+    private int totalPlayers;
+    private GUI_Player[] GUIplayerObjArray;
 
 
     public UIController() {
@@ -28,8 +30,8 @@ public class UIController {
         fields[4] = new GUI_Street("Slikbutikken", "Pris:  1", "Slikbutikken", "Leje:  1", new Color(102, 178, 255), Color.BLACK);
         fields[5] = new GUI_Street("Iskiosken", "Pris:  1", "Iskiosken", "Leje:  1", new Color(102, 178, 255), Color.BLACK);
         fields[6] = new GUI_Jail("default", "Fængsel", "Fængsel", "På besøg i fængslet", new Color(125, 125, 125), Color.BLACK);
-        fields[7] = new GUI_Street("Musseet", "Pris:  2", "Musseet", "Leje:  2", new Color(255, 102, 102), Color.BLACK);
-        fields[8] = new GUI_Street("Biblioteket", "Pris:  2", "Biblioteket", "Leje:  2", new Color(255, 102, 102), Color.BLACK);
+        fields[7] = new GUI_Street("Musseet", "Pris:  2", "Musseet", "Leje:  2", new Color(255, 111, 0), Color.BLACK);
+        fields[8] = new GUI_Street("Biblioteket", "Pris:  2", "Biblioteket", "Leje:  2", new Color(255, 106, 0), Color.BLACK);
         fields[9] = new GUI_Chance("?", "PrÃ¸v lykken", "Ta' et chancekort.", new Color(204, 204, 204), Color.BLACK);
         fields[10] = new GUI_Street("Skaterparken", "Pris:  2", "Skaterparken", "Leje:  2", new Color(255, 255, 102), Color.BLACK);
         fields[11] = new GUI_Street("Swimmingpoolen", "Pris:  2", "Swimmingpoolen", "Leje:  2", new Color(255, 255, 102), Color.BLACK);
@@ -61,14 +63,12 @@ public class UIController {
         return totalPlayers;
     }
 
-    public GUI_Player[] getPlayerObjArray() {
-        return playerObjArray;
+    public GUI_Player[] getGUIPlayerObjArray() {
+        return GUIplayerObjArray;
     }
 
     public String setNameUI() {
-        String name = null;
-        name = gui.getUserString( "hvad er dit navn?");
-        return name;
+        return gui.getUserString( "Hvad er dit navn?");
     }
 
     public void showMessage(String text) {
@@ -76,22 +76,34 @@ public class UIController {
     }
 
     public void addGUIPlayer (int bal) {
+        GUIplayerObjArray = new GUI_Player[totalPlayers];
         for (int i = 0; i < totalPlayers ; i++) {
-            playerObjArray[i] = new GUI_Player(setNameUI(), bal);
-            gui.addPlayer(playerObjArray[i]);
-            gui.getFields()[0].setCar(playerObjArray[i],true);
-            System.out.println(playerObjArray[i]);
+            GUIplayerObjArray[i] = new GUI_Player(setNameUI(), bal);
+            gui.addPlayer(GUIplayerObjArray[i]);
+            gui.getFields()[0].setCar(GUIplayerObjArray[i],true);
+            System.out.println(GUIplayerObjArray[i]);
         }
+    }
+
+    public Player[] setPlayerInformation(Player[] playerObjArray) {
+        for(int i = 0; i < totalPlayers; i++) {
+            playerObjArray[i] =  new Player();
+        }
+        return playerObjArray;
     }
 
     public void setDice (int roll) { gui.setDie(roll); }
 
-    public void movePlayer (int newPos, GUI_Player player) {
+    public void movePlayer (int dice, Player playerObj, GUI_Player GUIplayerObj) {
+        playerObj.setTilePosition(playerObj.getTilePosition() + dice);
+        if (playerObj.getTilePosition() > 23){
+            playerObj.setTilePosition(playerObj.getTilePosition() % 24);
+        }
         for (int i = 0; i <fields.length ; i++) {
             if ( fields[i]!=null )
-                fields[i].setCar(player,false);
+                fields[i].setCar(GUIplayerObj,false);
+            gui.getFields()[playerObj.getTilePosition()].setCar(GUIplayerObj,true);
         }
-        gui.getFields()[newPos].setCar(player,true);
     }
 
     public int startBal(int spiller){
@@ -107,15 +119,16 @@ public class UIController {
         addGUIPlayer(bal);
     }
 
-    public void playerTurn(GUI_Player GUIplayerObj) {
+    public void playerTurn(main.Player playerObj, GUI_Player GUIplayerObj) {
         int die = this.dieObj.dieHit();
         GUISetDice(die);
         showMessage ("Du slog: " + die);
-        movePlayer(die, GUIplayerObj);
+        movePlayer(die, playerObj, GUIplayerObj);
+
     }
+    public void landOnField() {
 
-
-
+    }
 }
 
 

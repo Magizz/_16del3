@@ -4,10 +4,12 @@ import main.Player;
 import java.util.Random;
 
 public class Chance extends Tile{
-    private Chance[] ChanceArray = new Chance[24];
     private String description;
     private GUI uiObj;
 
+    public Chance(int ID) {
+        this.tileID = ID;
+    }
     public void drawChance(Player playerObj) {
         Random rand = new Random(8);
         int card = rand.nextInt()+1;
@@ -36,6 +38,11 @@ public class Chance extends Tile{
                 System.out.println();
         }
     }
+    public void chanceTilesInitializer() {
+
+    }
+
+    // Chancekort metoder
     public void moveToStartChance(Player playerObj) {
         playerObj.setTilePosition(0);
         playerObj.setBal(playerObj.getBal() + 2);
@@ -55,4 +62,5 @@ public class Chance extends Tile{
     public void doneHomeworkChance(Player playerObj) { playerObj.setBal(playerObj.getBal()+2); }
     public void moveToRedFieldChance(Player playerObj) {playerObj.setTilePosition(13); }
     public void moveToSkaterparkenChance(Player playerObj) {playerObj.setTilePosition(10);}
+
 }
