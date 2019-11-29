@@ -10,10 +10,15 @@ public class Jail extends Tile {
         if (playerObj.getTilePosition()== 6) {
 
         }
-        else {
+        else if (playerObj.getTilePosition() == 18 && playerObj.getJailFreeCard()==true ) {
             //uiObj.showMessage("Du kører for stærkt! Du får en bøde på 2 M, og bruger din tur i kachotten.");
-            playerObj.setBal(playerObj.getBal()-2);
             playerObj.setTilePosition(6);
+            playerObj.setJailFreeCard(false);
         }
+        else {
+            playerObj.setTilePosition(6);
+            playerObj.setBal(playerObj.getBal()-2);
+        }
+
     }
 }
