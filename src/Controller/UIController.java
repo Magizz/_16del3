@@ -112,6 +112,7 @@ public class UIController {
         }
         return cars;
     }
+    public GUI_Car[] getCars() { return this.cars;}
 
     public void addPlayer (int bal) {
         GUIplayerObjArray = new GUI_Player[totalPlayers];
@@ -122,6 +123,7 @@ public class UIController {
             playerObjArray[i] = new Player(GUIplayerObjArray[i].getName(),bal);
             gui.addPlayer(GUIplayerObjArray[i]);
             gui.getFields()[0].setCar(GUIplayerObjArray[i],true);
+            playerObjArray[i].setPlayerColor(cars[i].getPrimaryColor());
             System.out.println(GUIplayerObjArray[i]);
         }
     }
@@ -175,7 +177,7 @@ public class UIController {
         movePlayer(die, playerObj, GUIplayerObj);
         board[playerObj.getTilePosition()].landOnField(playerObj);
         updateBalance(playerObjArray);
-        System.out.println(playerObj.getName() + "t: " + playerObj.getTilePosition() + "b: " + playerObj.getBal());
+        System.out.println(playerObj.getName() + " t: " + playerObj.getTilePosition() + " b: " + playerObj.getBal());
     }
 
     public void updateBalance(Player[] playerObjArray) {
@@ -186,6 +188,15 @@ public class UIController {
 
     public void displayChanceCard (String text){
         gui.displayChanceCard(text);
+    }
+
+    public void setPropertyColor(Player playerObj) {
+        if() {
+            Property propertyObj = playerObj.getLastPropertyBought();
+            int ID = propertyObj.getTileID();
+            GUI_Ownable gui_ownable = (GUI_Ownable) fields[ID];
+            gui_ownable.setBorder(playerObj.getPlayerColor());
+        }
     }
 }
 

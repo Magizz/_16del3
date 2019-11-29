@@ -3,6 +3,8 @@ package main;
 import Tiles.Property;
 import com.sun.deploy.panel.IProperty;
 
+import java.awt.*;
+
 public class Player {
     private static int maxProperties = 12;
     private String name;
@@ -11,7 +13,9 @@ public class Player {
     private int tilePosition = 0;
     private int numberPropertiesOwned = 0;
     private Property ownedProperty[] = new Property[maxProperties];
+    private Property lastPropertyBought;
     private boolean jailFreeCard = false;
+    private Color playerColor;
 
 
     public Player () {
@@ -38,6 +42,8 @@ public class Player {
     public int getMaxProperties() {return maxProperties; }
     public int getNumberPropertiesOwned() {return numberPropertiesOwned; }
     public Property[] getOwnedProperty() {return ownedProperty; }
+    public Color getPlayerColor() {return playerColor; }
+    public Property getLastPropertyBought() {return lastPropertyBought;}
 
     // Mutators
     public void setTilePosition( int tp ) { tilePosition = tp; }
@@ -47,6 +53,10 @@ public class Player {
     public void setJailFreeCard(boolean state) { jailFreeCard = state; }
     public void setNumberPropertiesOwned(int newNPO) {this.numberPropertiesOwned = newNPO; }
     public void setOwnedProperty(int index, Property propertyObj) {ownedProperty[index] = propertyObj;}
+    public void setPlayerColor(java.awt.Color rgb) {playerColor = rgb;}
+    public void setLastPropertyBought(Property lastPropertyBought) {
+        this.lastPropertyBought = lastPropertyBought;
+    }
 
     // toString
     public String toString() {
