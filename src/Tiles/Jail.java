@@ -1,19 +1,19 @@
 package Tiles;
+import main.Player;
+import Controller.*;
+public class Jail extends Tile {
+    //UIController uiObj = new UIController();
+    // Contrusctor
+    public Jail(int ID) { this.tileID = ID; }
 
-import Controller.UIController;
+    public void landOnField(Player playerObj) {
+        if (playerObj.getTilePosition()== 6) {
 
-public class Jail {
-
-    UIController UI = new UIController();
-
-    // Go to Jail
-    public void landOnTile18 (main.Player p) {
-        p.setTilePosition(18);
-    }
-
-    // Visit Jail
-    public void landOnTile6 (){
-        UI.showMessage("Bare rolig bror, du er bare på besøg");
-
+        }
+        else {
+            //uiObj.showMessage("Du kører for stærkt! Du får en bøde på 2 M, og bruger din tur i kachotten.");
+            playerObj.setBal(playerObj.getBal()-2);
+            playerObj.setTilePosition(6);
+        }
     }
 }

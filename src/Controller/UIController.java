@@ -1,17 +1,22 @@
 package Controller;
 import gui_fields.*;
 import gui_main.GUI;
-import main.Bank;
-import main.Dice;
+import main.*;
+import Tiles.*;
 import java.awt.*;
 
 public class UIController {
-    private GUI_Player[] playerObjArray = new GUI_Player[4];;
+    private GameController GameConObj = new GameController();
     private Dice dieObj = new Dice();
-    private Bank bankObj;
     private GUI_Field[] fields = new GUI_Field[24];
     private GUI gui;
-    private int totalPlayers = 0;
+    private int totalPlayers;
+    private GUI_Player[] GUIplayerObjArray;
+    private Player[] playerObjArray;
+    private Board boardObj = new Board();
+    private Tile[] board = boardObj.getBoard();
+    private GUI_Car[] cars;
+
 
 
     public UIController() {
@@ -28,8 +33,8 @@ public class UIController {
         fields[4] = new GUI_Street("Slikbutikken", "Pris:  1", "Slikbutikken", "Leje:  1", new Color(102, 178, 255), Color.BLACK);
         fields[5] = new GUI_Street("Iskiosken", "Pris:  1", "Iskiosken", "Leje:  1", new Color(102, 178, 255), Color.BLACK);
         fields[6] = new GUI_Jail("default", "Fængsel", "Fængsel", "På besøg i fængslet", new Color(125, 125, 125), Color.BLACK);
-        fields[7] = new GUI_Street("Musseet", "Pris:  2", "Musseet", "Leje:  2", new Color(255, 102, 102), Color.BLACK);
-        fields[8] = new GUI_Street("Biblioteket", "Pris:  2", "Biblioteket", "Leje:  2", new Color(255, 102, 102), Color.BLACK);
+        fields[7] = new GUI_Street("Musseet", "Pris:  2", "Musseet", "Leje:  2", new Color(255, 111, 0), Color.BLACK);
+        fields[8] = new GUI_Street("Biblioteket", "Pris:  2", "Biblioteket", "Leje:  2", new Color(255, 106, 0), Color.BLACK);
         fields[9] = new GUI_Chance("?", "PrÃ¸v lykken", "Ta' et chancekort.", new Color(204, 204, 204), Color.BLACK);
         fields[10] = new GUI_Street("Skaterparken", "Pris:  2", "Skaterparken", "Leje:  2", new Color(255, 255, 102), Color.BLACK);
         fields[11] = new GUI_Street("Swimmingpoolen", "Pris:  2", "Swimmingpoolen", "Leje:  2", new Color(255, 255, 102), Color.BLACK);
@@ -61,61 +66,96 @@ public class UIController {
         return totalPlayers;
     }
 
-    public GUI_Player[] getPlayerObjArray() {
-        return playerObjArray;
+    public GUI_Player[] getGUIPlayerObjArray() {
+        return GUIplayerObjArray;
     }
 
     public String setNameUI() {
-        String name = null;
-        name = gui.getUserString( "hvad er dit navn?");
-        return name;
+        return gui.getUserString( "Hvad er dit navn?");
     }
 
     public void showMessage(String text) {
         gui.showMessage("" + text);
     }
 
-    public void addGUIPlayer (int bal) {
+    public GUI_Car[] carInitializer() {
+        cars = new GUI_Car[totalPlayers];
+        for(int i = 0; i < totalPlayers; i++) {
+            if (i == 0) {
+                cars[i] = new GUI_Car(Color.RED, Color.RED, GUI_Car.Type.RACECAR, GUI_Car.Pattern.FILL);
+            }
+            if (i == 1) {
+                cars[i] = new GUI_Car(Color.BLUE, Color.BLUE, GUI_Car.Type.RACECAR, GUI_Car.Pattern.FILL);
+            }
+            if (i == 2) {
+                cars[i] = new GUI_Car(Color.GREEN, Color.GREEN, GUI_Car.Type.RACECAR, GUI_Car.Pattern.FILL);
+            }
+            if (i ==3 ) {
+                cars[i] = new GUI_Car(Color.YELLOW, Color.YELLOW, GUI_Car.Type.RACECAR, GUI_Car.Pattern.FILL);
+            }
+        }
+        return cars;
+    }
+
+    public void addPlayer (int bal) {
+        GUIplayerObjArray = new GUI_Player[totalPlayers];
+        playerObjArray = new Player[totalPlayers];
+        cars = carInitializer();
         for (int i = 0; i < totalPlayers ; i++) {
-            playerObjArray[i] = new GUI_Player(setNameUI(), bal);
-            gui.addPlayer(playerObjArray[i]);
-            gui.getFields()[0].setCar(playerObjArray[i],true);
-            System.out.println(playerObjArray[i]);
+            GUIplayerObjArray[i] = new GUI_Player(setNameUI(), bal, cars[i]);
+            playerObjArray[i] = new Player(GUIplayerObjArray[i].getName(),bal);
+            gui.addPlayer(GUIplayerObjArray[i]);
+            gui.getFields()[0].setCar(GUIplayerObjArray[i],true);
+            System.out.println(GUIplayerObjArray[i]);
         }
     }
+
+    public Player[] getPlayersArray() { return playerObjArray; }
 
     public void setDice (int roll) { gui.setDie(roll); }
 
-    public void movePlayer (int newPos, GUI_Player player) {
+    public void movePlayer (int dice, Player playerObj, GUI_Player GUIplayerObj) {
+        playerObj.setTilePosition(playerObj.getTilePosition() + dice);
+        if (playerObj.getTilePosition() > 23){
+            playerObj.setTilePosition(playerObj.getTilePosition() % 24);
+            GameConObj.passStart(GUIplayerObj);
+        }
         for (int i = 0; i <fields.length ; i++) {
             if ( fields[i]!=null )
-                fields[i].setCar(player,false);
+                fields[i].setCar(GUIplayerObj,false);
+            gui.getFields()[playerObj.getTilePosition()].setCar(GUIplayerObj,true);
         }
-        gui.getFields()[newPos].setCar(player,true);
     }
 
-    public int startBal(int spiller){
-        if (spiller == 2) { return 20; }
-        else if (spiller == 3){ return 18; }
-        else { return 16; }
+    public int startBal(int players){
+        int bal;
+        bal = (players * -2)+24;
+        return bal;
     }
 
     public void startGame() {
         this.totalPlayers = getSetPlayerNumber();
         System.out.println(totalPlayers);
         int bal = startBal(totalPlayers);
-        addGUIPlayer(bal);
+        addPlayer(bal);
     }
 
-    public void playerTurn(GUI_Player GUIplayerObj) {
+    public void playerTurn(Player playerObj, GUI_Player GUIplayerObj, Player[] playerObjArray) {
+        showMessage("Det er " + playerObj.getName() + "'s tur! Slå med terningen!");
         int die = this.dieObj.dieHit();
         GUISetDice(die);
         showMessage ("Du slog: " + die);
-        movePlayer(die, GUIplayerObj);
+        movePlayer(die, playerObj, GUIplayerObj);
+        board[playerObj.getTilePosition()].landOnField(playerObj);
+        updateBalance(playerObjArray);
+        System.out.println(playerObj.getName() + "t: " + playerObj.getTilePosition() + "b: " + playerObj.getBal());
     }
 
-
-
+    public void updateBalance(Player[] playerObjArray) {
+        for (int i = 0; i < totalPlayers; i++) {
+            GUIplayerObjArray[i].setBalance(playerObjArray[i].getBal());
+        }
+    }
 }
 
 
