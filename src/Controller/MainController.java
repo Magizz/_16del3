@@ -28,9 +28,17 @@ public class MainController {
         while (!gameover) {
             for (int i = 0; i < ui.getTotalPlayers(); i++)
             ui.playerTurn(playersObjArray[i], guiPlayersObjArray[i], playersObjArray );
+            gameover = checkGameover();
         }
     }
     public void Game() {runTest();}
-    public void quickTest() {ui.displayChanceCard("yala min ven");}
+    public boolean checkGameover(){
+        for (Player player: playersObjArray) {
+            if (player.getBal() < 0) {
+                return true;
+            }
+        }
+        return false;
+    }
 
 }

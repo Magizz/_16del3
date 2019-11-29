@@ -177,6 +177,7 @@ public class UIController {
         movePlayer(die, playerObj, GUIplayerObj);
         board[playerObj.getTilePosition()].landOnField(playerObj);
         updateBalance(playerObjArray);
+        setPropertyColor(playerObj);
         System.out.println(playerObj.getName() + " t: " + playerObj.getTilePosition() + " b: " + playerObj.getBal());
     }
 
@@ -191,11 +192,14 @@ public class UIController {
     }
 
     public void setPropertyColor(Player playerObj) {
-        if() {
+        if(playerObj.getLastPropertyBought() == this.board[playerObj.getTilePosition()] ) {
             Property propertyObj = playerObj.getLastPropertyBought();
             int ID = propertyObj.getTileID();
             GUI_Ownable gui_ownable = (GUI_Ownable) fields[ID];
             gui_ownable.setBorder(playerObj.getPlayerColor());
+        }
+        else{
+            System.out.println("");
         }
     }
 }
