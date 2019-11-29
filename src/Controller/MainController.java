@@ -6,7 +6,7 @@ import Tiles.*;
 
 
 public class MainController {
-    private UIController ui = new UIController();
+    private UIController ui = UIController.getInstance();
     private Board boardObj = new Board();
     private Dice dieObj = new Dice();
     private int die = dieObj.dieHit();
@@ -31,5 +31,6 @@ public class MainController {
         }
     }
     public void Game() {runTest();}
+    public void quickTest() {ui.displayChanceCard("yala min ven");}
 
 }
