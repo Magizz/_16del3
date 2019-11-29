@@ -6,7 +6,7 @@ import main.Dice;
 import main.Player;
 
 class Test {
-    UIController ui = new UIController();
+    UIController ui = UIController.getInstance();
     Player pl = new Player();
     Dice d = new Dice();
     private boolean gameover = false;

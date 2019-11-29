@@ -6,22 +6,38 @@ import Tiles.*;
 import java.awt.*;
 
 public class UIController {
-    private GameController GameConObj = new GameController();
-    private Dice dieObj = new Dice();
-    private GUI_Field[] fields = new GUI_Field[24];
+    private GameController GameConObj;
+    private Dice dieObj;
+    private GUI_Field[] fields;
     private GUI gui;
     private int totalPlayers;
     private GUI_Player[] GUIplayerObjArray;
     private Player[] playerObjArray;
-    private Board boardObj = new Board();
-    private Tile[] board = boardObj.getBoard();
+    private Board boardObj;
+    private Tile[] board;
     private GUI_Car[] cars;
 
+    private static UIController instance;
+
+    public static UIController getInstance() {
+        if (instance == null) {
+            instance = new UIController();
+            instance.init();
+        }
+        return instance;
+    }
 
 
-    public UIController() {
+    private void init () {
+        GameConObj = new GameController();
+        dieObj = new Dice();
+        fields = new GUI_Field[24];
+        boardObj = new Board();
+        board = boardObj.getBoard();
         gui = new GUI(createBoard());
     }
+
+    private UIController() {  }
 
     public void GUISetDice (int roll) { gui.setDie(roll); }
 
@@ -35,7 +51,7 @@ public class UIController {
         fields[6] = new GUI_Jail("default", "Fængsel", "Fængsel", "På besøg i fængslet", new Color(125, 125, 125), Color.BLACK);
         fields[7] = new GUI_Street("Musseet", "Pris:  2", "Musseet", "Leje:  2", new Color(255, 111, 0), Color.BLACK);
         fields[8] = new GUI_Street("Biblioteket", "Pris:  2", "Biblioteket", "Leje:  2", new Color(255, 106, 0), Color.BLACK);
-        fields[9] = new GUI_Chance("?", "PrÃ¸v lykken", "Ta' et chancekort.", new Color(204, 204, 204), Color.BLACK);
+        fields[9] = new GUI_Chance("?", "Prøv lykken", "Ta' et chancekort.", new Color(204, 204, 204), Color.BLACK);
         fields[10] = new GUI_Street("Skaterparken", "Pris:  2", "Skaterparken", "Leje:  2", new Color(255, 255, 102), Color.BLACK);
         fields[11] = new GUI_Street("Swimmingpoolen", "Pris:  2", "Swimmingpoolen", "Leje:  2", new Color(255, 255, 102), Color.BLACK);
         fields[12] = new GUI_Refuge("default", "Helle", "Helle", "Ta' en pause min ven", Color.WHITE, Color.BLACK);
@@ -96,6 +112,7 @@ public class UIController {
         }
         return cars;
     }
+    public GUI_Car[] getCars() { return this.cars;}
 
     public void addPlayer (int bal) {
         GUIplayerObjArray = new GUI_Player[totalPlayers];
@@ -106,6 +123,7 @@ public class UIController {
             playerObjArray[i] = new Player(GUIplayerObjArray[i].getName(),bal);
             gui.addPlayer(GUIplayerObjArray[i]);
             gui.getFields()[0].setCar(GUIplayerObjArray[i],true);
+            playerObjArray[i].setPlayerColor(cars[i].getPrimaryColor());
             System.out.println(GUIplayerObjArray[i]);
         }
     }
@@ -114,18 +132,29 @@ public class UIController {
 
     public void setDice (int roll) { gui.setDie(roll); }
 
-    public void movePlayer (int dice, Player playerObj, GUI_Player GUIplayerObj) {
-        playerObj.setTilePosition(playerObj.getTilePosition() + dice);
-        if (playerObj.getTilePosition() > 23){
-            playerObj.setTilePosition(playerObj.getTilePosition() % 24);
-            GameConObj.passStart(GUIplayerObj);
-        }
-        for (int i = 0; i <fields.length ; i++) {
-            if ( fields[i]!=null )
-                fields[i].setCar(GUIplayerObj,false);
-            gui.getFields()[playerObj.getTilePosition()].setCar(GUIplayerObj,true);
+    public void chanceMovePlayer (int position, Player playerObj, GUI_Player GUIplayerObj) {
+        playerObj.setTilePosition(position);
+        GameConObj.passStart(GUIplayerObj);
+        for (int i = 0; i < fields.length; i++) {
+            if (fields[i] != null)
+                fields[i].setCar(GUIplayerObj, false);
+            gui.getFields()[playerObj.getTilePosition()].setCar(GUIplayerObj, true);
         }
     }
+
+        public void movePlayer ( int dice, Player playerObj, GUI_Player GUIplayerObj){
+            playerObj.setTilePosition(playerObj.getTilePosition() + dice);
+            if (playerObj.getTilePosition() > 23) {
+                playerObj.setTilePosition(playerObj.getTilePosition() % 24);
+                GameConObj.passStart(GUIplayerObj);
+            }
+            for (int i = 0; i < fields.length; i++) {
+                if (fields[i] != null)
+                    fields[i].setCar(GUIplayerObj, false);
+                gui.getFields()[playerObj.getTilePosition()].setCar(GUIplayerObj, true);
+            }
+        }
+
 
     public int startBal(int players){
         int bal;
@@ -148,12 +177,25 @@ public class UIController {
         movePlayer(die, playerObj, GUIplayerObj);
         board[playerObj.getTilePosition()].landOnField(playerObj);
         updateBalance(playerObjArray);
-        System.out.println(playerObj.getName() + "t: " + playerObj.getTilePosition() + "b: " + playerObj.getBal());
+        System.out.println(playerObj.getName() + " t: " + playerObj.getTilePosition() + " b: " + playerObj.getBal());
     }
 
     public void updateBalance(Player[] playerObjArray) {
         for (int i = 0; i < totalPlayers; i++) {
             GUIplayerObjArray[i].setBalance(playerObjArray[i].getBal());
+        }
+    }
+
+    public void displayChanceCard (String text){
+        gui.displayChanceCard(text);
+    }
+
+    public void setPropertyColor(Player playerObj) {
+        if() {
+            Property propertyObj = playerObj.getLastPropertyBought();
+            int ID = propertyObj.getTileID();
+            GUI_Ownable gui_ownable = (GUI_Ownable) fields[ID];
+            gui_ownable.setBorder(playerObj.getPlayerColor());
         }
     }
 }

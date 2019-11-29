@@ -1,7 +1,11 @@
 package Tiles;
 
+import Controller.UIController;
 import Tiles.Tile;
+import gui_main.GUI;
 import main.Player;
+import gui_fields.*;
+import gui_main.GUI.*;
 
 public class Property extends Tile {
     private String name;
@@ -9,6 +13,8 @@ public class Property extends Tile {
     private boolean isOwned;
     private int rent;
     private main.Player owner;
+    private UIController uiOBj;
+
 
     // Constructors
     public Property() {};
@@ -56,6 +62,7 @@ public class Property extends Tile {
         playerObj.setOwnedProperty(playerObj.getNumberPropertiesOwned(), propertyObj);
         playerObj.setNumberPropertiesOwned(playerObj.getNumberPropertiesOwned()+1);
         propertyObj.setOwner(playerObj);
+        playerObj.setLastPropertyBought(propertyObj);
         return true;
     }
     public void payRent(Player playerObj, Property propertyObj) {
@@ -71,6 +78,8 @@ public class Property extends Tile {
                 "\nRent: " + getRent();
         return output;
     }
+
+
 
 
 }
